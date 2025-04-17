@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://x3xbftqianjb"]
+
+[ext_resource type="Texture2D" uid="uid://b1f5w2g6gudlq" path="res://dodge_the_creeps_2d_assets/art/playerGrey_up2.png" id="1_5rgpn"]
+[ext_resource type="Script" uid="uid://ct8s48nh2hqes" path="res://player.gd" id="1_c0nl8"]
+[ext_resource type="Texture2D" uid="uid://62m5g73qi77l" path="res://dodge_the_creeps_2d_assets/art/playerGrey_up1.png" id="2_c0nl8"]
+[ext_resource type="Texture2D" uid="uid://bxpg8urwexlfi" path="res://dodge_the_creeps_2d_assets/art/playerGrey_walk2.png" id="3_1dtnr"]
+[ext_resource type="Texture2D" uid="uid://b3bc1d4fmo54j" path="res://dodge_the_creeps_2d_assets/art/playerGrey_walk1.png" id="4_1dtnr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c33a7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c0nl8")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c0nl8")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c0nl8")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5rgpn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c0nl8")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1dtnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1dtnr")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oqxq1"]
+radius = 26.0
+height = 66.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_c0nl8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_c33a7")
+animation = &"death"
+frame = 4
+frame_progress = 1.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_oqxq1")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://jl52m5bjyv45"]
+
+[ext_resource type="Texture2D" uid="uid://cigeli6kajgm3" path="res://assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_0xpay"]
+[ext_resource type="Texture2D" uid="uid://b4j3qnfgll70n" path="res://assets/generic_char_v0.2/png/blue/char_blue_1.png" id="2_st5ax"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0xpay"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource("1_0xpay")
+region_rect = Rect2(323, 203, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuxrd"]
+atlas = ExtResource("2_st5ax")
+region = Rect2(22, 24, 11, 11)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xpay"]
+atlas = ExtResource("1_0xpay")
+region = Rect2(307, 21, 58, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st5ax"]
+atlas = ExtResource("1_0xpay")
+region = Rect2(308, 118, 56, 4)
+
+[node name="StatesPanel" type="HBoxContainer"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 90.0
+offset_bottom = 28.0
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0xpay")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 2
+offset_right = 26.0
+offset_bottom = 26.0
+texture = SubResource("AtlasTexture_tuxrd")
+stretch_mode = 5
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+texture_over = SubResource("AtlasTexture_0xpay")
+texture_progress = SubResource("AtlasTexture_st5ax")
+texture_progress_offset = Vector2(1, 1)
