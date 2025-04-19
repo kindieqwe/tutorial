@@ -4,12 +4,14 @@ const MOUSE_Y_SNAPBACK_THRESHOLD := 138
 
 
 func enter() -> void:
-	card_ui.color.color = Color.WEB_PURPLE
-	card_ui.state.test = "AIMING"
+	card_ui.color.color = Color.WEB_PURPLE    
+	#card_ui.state.text = "AIMING"        “BUG 拼写错误”
+	card_ui.state.text = "AIMING"
+	#进入瞄准后， 要确保目标只有敌人 故需要清空
 	card_ui.targets.clear()
 	
 	var offset := Vector2(card_ui.parent.size.x / 2, - card_ui.size.y / 2)
-	offset.x -= card_ui.size.x /2
+	offset.x -= card_ui.size.x / 2
 	card_ui.animate_to_position(card_ui.parent.global_position + offset, 0.2)
 	#关闭卡牌的落点监视
 	card_ui.drop_point_detector.monitoring = false

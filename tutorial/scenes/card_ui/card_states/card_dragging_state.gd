@@ -23,17 +23,24 @@ func enter() -> void:
 
 
 func on_input(event: InputEvent) -> void:
+	# 变量signal_targeted 赋值bool类型函数，用于检测是否为单一目标卡牌
+	var signal_targeted := card_ui.card.is_single_targeted()
 	var mouse_motion := event is InputEventMouseMotion
 	var cancel = event.is_action_pressed("right_mouse")
 	#bug提示：如果短时间内同时满足两个条件，会出bug
 	var confirm = event.is_action_released("left_mouse") or event.is_action_pressed("left_mouse")
 	
+	#同时满足三个条件才进入瞄准状态，单一目标，鼠标移动，卡牌有目标区域（即卡牌到了释放区域，如果还在手牌区则返回base）
+	if signal_targeted and mouse_motion and card_ui.targets.size() > 0:
+		transition_requested.emit(self, CardState.State.AIMING)
+		return
+		
 	if mouse_motion:
 		#卡牌的位置设置为鼠标的位置
 		card_ui.global_position = card_ui.get_global_mouse_position() - card_ui.pivot_offset
 		
 	if cancel:
-		transition_requested.emit(self,CardState.State.BASE)
+		transition_requested.emit(self, CardState.State.BASE)
 	elif confirm:
 		#将输入标记为已处理，以免意外立即拾取新的卡片
 		get_viewport().set_input_as_handled()
