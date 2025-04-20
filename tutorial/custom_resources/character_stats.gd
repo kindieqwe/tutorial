@@ -1,0 +1,35 @@
+class_name CharacterStats
+extends Stats
+
+@export var starting_deck: CardPile    #牌堆
+@export var cards_per_turn: int			#每回合能抽取多少牌
+@export var max_mana: int    	#法力值
+
+var mana: int : set = set_mana
+var deck: CardPile   #手牌
+var discard: CardPile  #弃牌堆
+var draw_pile: CardPile   #抽排堆
+
+#设置法力值 法力值可以超出限制
+func set_mana(value: int) -> void:
+	mana = value
+	stats_changed.emit()
+	
+#每回合重置法力值 
+func reset_mana() -> void:
+	self.mana = max_mana
+	
+#检测是否可以打出当前的牌，返回一个布尔值，card：想要打出的牌
+func can_play_card(card: Card) -> bool:
+	return mana >= card.cost
+	
+#创建玩家实例 设置对应的属性
+func creat_instance() -> Resource:
+	var instance: CharacterStats = self.duplicate()
+	instance.health = max_health
+	instance.block = 0
+	instance.reset_mana()
+	instance.deck = instance.starting_deck.duplicate()
+	instance.draw_pile = CardPile.new()
+	instance.discard = CardPile.new()
+	return instance

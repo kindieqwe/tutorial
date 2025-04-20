@@ -3,8 +3,7 @@ extends CardState
 var played: bool	
 
 func enter() -> void:
-		card_ui.color.color = Color.DARK_VIOLET
-		card_ui.state.text = "RELEASED"
+		
 		#设为未打出
 		played = false
 		#检测 卡牌的目标区域是否为空，不为空则可以进行下一步操作

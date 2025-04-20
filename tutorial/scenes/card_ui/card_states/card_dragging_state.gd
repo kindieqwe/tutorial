@@ -1,6 +1,6 @@
 extends CardState
 
-const  DRAG_MINIMUN_THRESHOLD := 0.02
+const  DRAG_MINIMUN_THRESHOLD := 0.05
 
 var minimum_drag_time_elapsed := false
 
@@ -10,8 +10,9 @@ func enter() -> void:
 	if ui_layer:
 		card_ui.reparent(ui_layer)
 		
-	card_ui.color.color = Color.NAVY_BLUE
-	card_ui.state.text = "DRAGGING"
+	
+	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
+		
 	
 	#创建一次性计时器（false参数表示不自动重复）
 	#设置计时时长为DRAG_MINIMUN_THRESHOLD（假设为常量）

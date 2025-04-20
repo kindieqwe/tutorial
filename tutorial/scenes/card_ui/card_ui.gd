@@ -4,10 +4,15 @@ extends Control
 #信号，拖拽卡片时，重新父化卡牌，不然拖不出来
 signal reparent_requested(which_card_ui: CardUI)
 
-@export var card: Card
+const BASE_STYLEBOX := preload("res://scenes/card_ui/card_base_stylebox.tres")
+const DRAG_STYLEBOX := preload("res://scenes/card_ui/card_dragging_stylebox.tres")
+const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 
-@onready var color: ColorRect = $Color
-@onready var state: Label = $State
+@export var card: Card : set = _set_card
+
+@onready var panel: Panel = $Panel
+@onready var cost: Label = $Cost
+@onready var icon: TextureRect = $Icon
 @onready var drop_point_detector: Area2D = $DropPointDetector
 @onready var card_state_machine: CardStateMachine = $CardStateMachine as CardStateMachine
 #节点数组，用于存储当前卡牌的所有目标 进入释放区域或手牌区域， 在目标列表中添加释放区域or手牌区域  真的有手牌区域吗？
@@ -40,6 +45,15 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	card_state_machine.on_mouse_exited()
+	
+
+func _set_card(value: Card) -> void:
+	if not is_node_ready():    #检查节点是否准备就绪，就绪才能更改法力和文本
+		await  ready
+		
+	card = value
+	cost.text = str(card.cost)
+	icon.texture = card.icon
 	
 #卡片进入悬停区域时需要进行哪些操作
 func _on_drop_point_detector_area_entered(area: Area2D) -> void:

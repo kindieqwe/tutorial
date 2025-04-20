@@ -4,9 +4,7 @@ const MOUSE_Y_SNAPBACK_THRESHOLD := 138
 
 
 func enter() -> void:
-	card_ui.color.color = Color.WEB_PURPLE    
-	#card_ui.state.text = "AIMING"        “BUG 拼写错误”
-	card_ui.state.text = "AIMING"
+	
 	#进入瞄准后， 要确保目标只有敌人 故需要清空
 	card_ui.targets.clear()
 	
