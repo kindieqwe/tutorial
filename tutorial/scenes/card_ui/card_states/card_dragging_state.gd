@@ -12,6 +12,8 @@ func enter() -> void:
 		
 	
 	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
+	Events.card_drag_started.emit(card_ui)
+	
 		
 	
 	#创建一次性计时器（false参数表示不自动重复）
@@ -22,6 +24,8 @@ func enter() -> void:
 	threshold_timer.timeout.connect(func() : minimum_drag_time_elapsed = true)
 	
 
+func exit() -> void:
+	Events.card_drag_ended.emit(card_ui)  #发出卡牌退出拖动状态信号
 
 func on_input(event: InputEvent) -> void:
 	# 变量signal_targeted 赋值bool类型函数，用于检测是否为单一目标卡牌

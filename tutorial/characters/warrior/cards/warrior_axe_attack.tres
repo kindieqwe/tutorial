@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://cgy48idsj0xw8"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cgy48idsj0xw8"]
 
 [ext_resource type="Texture2D" uid="uid://ck1t4hdip6xrl" path="res://art/tile_0119.png" id="1_ungqh"]
-[ext_resource type="Script" uid="uid://cd50x2clv5lv6" path="res://custom_resources/card.gd" id="1_wba1x"]
+[ext_resource type="Script" uid="uid://bk5lgsw4wak8l" path="res://characters/warrior/cards/warrior_axe_attack.gd" id="2_ungqh"]
 
 [resource]
-script = ExtResource("1_wba1x")
+script = ExtResource("2_ungqh")
 id = "warrior_axe_attack"
 type = 0
 target = 1
 cost = 1
 icon = ExtResource("1_ungqh")
-tooltip_text = ""
+tooltip_text = "[center]Deal [color=\"ff0000\"] 6[/color]
+damage.[/center]"
 metadata/_custom_type_script = "uid://cd50x2clv5lv6"

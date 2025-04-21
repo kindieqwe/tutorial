@@ -19,5 +19,33 @@ enum Target {SELF, SINGLE_ENEMY, ALL_ENEMIES, EVERYONE}
 func is_single_targeted() -> bool:
 	return target == Target.SINGLE_ENEMY
 
+#获取目标数组，包含自身，敌人，所有敌人，所有人			
+func _get_targets(targets: Array[Node]) -> Array[Node]:
+	if not targets:
+		return []
 
+	var tree := targets[0].get_tree()   #tree赋值为 目标数组中的第一个元素
 	
+	match target:    #match 匹配目标 可用目标的枚举值
+		Target.SELF:
+			return tree.get_nodes_in_group("player") 
+		Target.ALL_ENEMIES:
+			return tree.get_nodes_in_group("enemies") #场景树？
+		Target.EVERYONE:
+			return tree.get_nodes_in_group("player") + tree.get_nodes_in_group("enemies")
+		_:
+			return []
+			
+func play(targets: Array[Node], char_stats: CharacterStats) -> void:
+	Events.card_player.emit(self)
+	char_stats.mana -= cost
+	
+	if is_single_targeted():    #检测为单一目标
+		apply_effects(targets)
+	else:                        #检测为多个目标
+		apply_effects(_get_targets(targets))
+
+#由子类覆写
+func apply_effects(_targets: Array[Node]) -> void:
+	pass
+			
