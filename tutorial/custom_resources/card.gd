@@ -37,7 +37,7 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 			return []
 			
 func play(targets: Array[Node], char_stats: CharacterStats) -> void:
-	Events.card_player.emit(self)
+	Events.card_played.emit(self)
 	char_stats.mana -= cost
 	
 	if is_single_targeted():    #检测为单一目标

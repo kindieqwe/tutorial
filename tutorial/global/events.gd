@@ -5,6 +5,14 @@ signal  card_drag_started(card_ui: CardUI)
 signal  card_drag_ended(card_ui: CardUI)
 signal  card_aim_started(card_ui: CardUI)
 signal  card_aim_ended(card_ui: CardUI)
-signal  card_player(card: Card)   #卡牌打出信号
+signal  card_played(card: Card)   #卡牌打出信号
 signal card_tooltip_requested(card: Card) #卡牌提示框请求
 signal tooltip_hide_requested()
+
+#player-related events
+signal player_hand_drawn   #在回合开始时抽取卡牌触发
+signal player_hand_discarded  #玩家弃牌时触发
+signal player_turn_ended       #玩家结束回合时触发
+
+#Enemy-related events
+signal enemy_action_completed(enemy: Enemy)  #敌人的行动完成释放信号

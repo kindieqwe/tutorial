@@ -8,13 +8,14 @@ extends Node2D
 
 
 func _ready() -> void:
+	
 	#await  get_tree().create_timer(4).timeout   #创建一个两秒的计时器
 	#take_damage(21)     #受到21点伤害
 	#stats.block += 17   #护盾值增加17
 	pass
 
 func set_character_stats(value: CharacterStats) -> void:
-	stats = value.creat_instance()
+	stats = value
 	
 	if not stats.stats_changed.is_connected(update_stats):
 		stats.stats_changed.connect(update_stats)   #信号连接，由于状态会改变多次，故只连接一次就可以
