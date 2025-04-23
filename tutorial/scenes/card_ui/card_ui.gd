@@ -18,7 +18,8 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 @onready var card_state_machine: CardStateMachine = $CardStateMachine as CardStateMachine
 #节点数组，用于存储当前卡牌的所有目标 进入释放区域或手牌区域， 在目标列表中添加释放区域or手牌区域  真的有手牌区域吗？
 @onready var targets: Array[Node] = []
-@onready var original_index := self.get_index()   #获得手牌的索引
+
+var original_index := self.get_index()   #获得手牌的索引
 
 var parent : Control
 var tween : Tween
@@ -107,6 +108,7 @@ func _on_card_drag_or_aim_ended(_card: CardUI) -> void:
 	self.playable = char_stats.can_play_card(card)
 	
 	
-func _on_char_stats_changed(used_card: CardUI) -> void:
+#func _on_char_stats_changed(used_card: CardUI) -> void:
+	#self.playable = char_stats.can_play_card(card)
+func _on_char_stats_changed() -> void:
 	self.playable = char_stats.can_play_card(card)
-	

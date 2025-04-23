@@ -9,7 +9,7 @@ func perform_action() -> void:
 		
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
-	block_effect.exectue([enemy])
+	block_effect.execute([enemy])
 	
 	#创建一个定时器，延迟时间为0.6秒，false表示这是一个一次性定时器（只触发一次）。
 	#timeout: 定时器的超时信号，当定时器结束时发出。

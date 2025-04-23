@@ -13,6 +13,8 @@ signal tooltip_hide_requested()
 signal player_hand_drawn   #在回合开始时抽取卡牌触发
 signal player_hand_discarded  #玩家弃牌时触发
 signal player_turn_ended       #玩家结束回合时触发
+signal player_died     #玩家死亡发出信号
 
 #Enemy-related events
 signal enemy_action_completed(enemy: Enemy)  #敌人的行动完成释放信号
+signal enemy_turn_ended    #敌人结束回合时触发

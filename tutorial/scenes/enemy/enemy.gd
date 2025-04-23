@@ -8,13 +8,15 @@ const ARROW_OFFSET := 5   #设置箭头与不同体型敌人的偏移量
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var arrow: Sprite2D = $Arrow
 @onready var stats_ui: StatsUI = $StatsUI
+@onready var intent_ui: IntentUI = $IntentUI
 
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
 
-func set_current_action(value: EnemyAction) -> void:
+func set_current_action(value: EnemyAction) -> void:  #value 为外部current_value所赋的值
 	current_action = value
-	
+	if current_action:
+		intent_ui.update_intent(current_action.intent)
 
 func _ready() -> void:
 	#await  get_tree().create_timer(2).timeout   #创建一个两秒的计时器
@@ -50,7 +52,8 @@ func update_action() -> void:
 	if not enemy_action_picker:
 		return
 		
-	if not current_action:
+	if not current_action:  #如果当前没有行为，则安排一个行为
+		#get_action() 会根据情况选择一个条件行为 或者 常规行为
 		current_action = enemy_action_picker.get_action()
 		return
 		
@@ -88,13 +91,11 @@ func take_damage(damage: int) -> void:
 		queue_free()   #删除？
 			
 	
-
 #箭头碰撞体进入敌人碰撞体时时，显示箭头
 func _on_area_entered(_area: Area2D) -> void:
 	#arrow.visible = true
 	arrow.show()
 	
-
 #箭头碰撞体离开敌人碰撞体时时，隐藏箭头
 func _on_area_exited(_area: Area2D) -> void:
 	#arrow.visible = false

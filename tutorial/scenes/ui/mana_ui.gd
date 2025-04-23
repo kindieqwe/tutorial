@@ -6,10 +6,10 @@ extends Panel
 @onready var mana_label: Label = $ManaLabel   #mana_label :跟踪蓝量
 
 
-#测试代码  
-func _ready() -> void:
-	await get_tree().create_timer(2).timeout
-	char_stats.mana = 3
+##测试代码  
+#func _ready() -> void:
+	#await get_tree().create_timer(2).timeout
+	#char_stats.mana = 3
 
 func _set_char_stats(value: CharacterStats) -> void:
 	char_stats = value

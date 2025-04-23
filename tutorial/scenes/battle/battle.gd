@@ -6,6 +6,10 @@ extends Node2D
 @onready var player_handler: PlayerHandler = $PlayerHandler as PlayerHandler
 @onready var end_turn_button: Button = $BattleUI/EndTurnButton
 @onready var player: Player = $Player
+@onready var enemy_handler: EnemyHandler = $EnemyHandler
+@onready var label: Label = $BattleUI/Label
+@onready var hand: Hand = $BattleUI/Hand
+
 
 
 func _ready() -> void:
@@ -16,12 +20,35 @@ func _ready() -> void:
 	battle_ui.char_stats = new_stats
 	player.stats = new_stats
 	
-	Events.player_turn_ended.connect(player_handler.end_turn)
-	Events.player_hand_discarded.connect(player_handler.start_turn)
+	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
+	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
 	
+	Events.player_turn_ended.connect(player_handler.end_turn)   #发出玩家回合结束信号
+	Events.player_hand_discarded.connect(enemy_handler.start_turn) #发出敌人回合开始信号
+	Events.player_died.connect(_on_player_died)
 	start_battle(new_stats)
-	
+	label.hide()
 	
 func start_battle(stats: CharacterStats) -> void:
 	player_handler.start_battle(stats)
+	enemy_handler.reset_enemy_actions()
 	
+
+func _on_enemies_child_order_changed() -> void:
+	if enemy_handler.get_child_count() == 0:
+		print("Victory")
+		if is_instance_valid(label):
+			label.text = "Victory"
+			label.show()
+		
+
+func _on_enemy_turn_ended() -> void:
+	player_handler.start_turn()
+	enemy_handler.reset_enemy_actions()
+	
+
+func _on_player_died() -> void:
+	print("Game Over!")
+	label.text = "Game Over!"
+	label.show()	
+	hand.hide()
