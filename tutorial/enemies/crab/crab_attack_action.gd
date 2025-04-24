@@ -12,6 +12,7 @@ func perform_action() -> void:
 	var end := target.global_position + Vector2.RIGHT * 32  #终点位置：玩家的向右便宜32像素
 	var damage_effect := DamageEffect.new()   #伤害效果
 	var target_array: Array[Node] = [target]
+	damage_effect.sound = sound
 	damage_effect.amount = damage  #导出的damage 赋值给伤害效果
 	
 	# enemy: 目标对象，即需要改变位置的敌人节点。

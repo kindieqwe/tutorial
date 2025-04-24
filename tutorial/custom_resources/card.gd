@@ -13,7 +13,7 @@ enum Target {SELF, SINGLE_ENEMY, ALL_ENEMIES, EVERYONE}
 @export_group("Card Visuals")
 @export var icon: Texture             #卡牌图标
 @export_multiline var tooltip_text: String     #文本提示字符串  多行形式
-
+@export var sound: AudioStream    #导出变量 音效
 
 #判断卡牌是否为单一目标
 func is_single_targeted() -> bool:
@@ -47,5 +47,6 @@ func play(targets: Array[Node], char_stats: CharacterStats) -> void:
 
 #由子类覆写
 func apply_effects(_targets: Array[Node]) -> void:
+	
 	pass
 			

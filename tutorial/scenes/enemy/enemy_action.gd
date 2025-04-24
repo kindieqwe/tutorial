@@ -4,6 +4,7 @@ extends Node
 enum Type {CONDITIONAL, CHANCE_BASED}  #枚举数据 记录敌人的释放技能类型？
 
 @export var intent: Intent
+@export var sound: AudioStream
 @export var type: Type  #类型
 @export_range(0.0, 10.0) var chance_weight := 0   #权重 expoet_range 可以在检查器中给出区间
 

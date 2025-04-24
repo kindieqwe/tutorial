@@ -14,6 +14,13 @@ var draw_pile: CardPile   #抽排堆
 func set_mana(value: int) -> void:
 	mana = value
 	stats_changed.emit()
+
+
+func take_damage(damage: int) -> void:
+	var initial_health := health
+	super.take_damage(damage)  #super 调用父类的函数
+	if initial_health > health:   #如果在take_damage() 之后 初始生命值更高，则发出受伤信号，响应屏幕变红
+		Events.player_hit.emit()
 	
 #每回合重置法力值 
 func reset_mana() -> void:

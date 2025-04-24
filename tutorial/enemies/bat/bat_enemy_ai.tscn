@@ -1,0 +1,39 @@
+[gd_scene load_steps=11 format=3 uid="uid://bka6m2xqbfq12"]
+
+[ext_resource type="Script" uid="uid://cyxbd5xqvj7ih" path="res://scenes/enemy/enemy_action_picker.gd" id="1_hyg8h"]
+[ext_resource type="Script" uid="uid://b814wdbneu2s6" path="res://enemies/bat/bat_attack_action.gd" id="2_06k5i"]
+[ext_resource type="Texture2D" uid="uid://bfvi02kojsa00" path="res://art/tile_0103.png" id="3_5laa2"]
+[ext_resource type="Script" uid="uid://bv67tu65uldml" path="res://enemies/bat/bat_block_action.gd" id="3_yq87b"]
+[ext_resource type="Script" uid="uid://dggdpqxv3uoav" path="res://custom_resources/intent.gd" id="4_6cpw6"]
+[ext_resource type="AudioStream" uid="uid://de2ryat1pxq6" path="res://art/enemy_attack.ogg" id="5_8hwcw"]
+[ext_resource type="Texture2D" uid="uid://bi6pfjs32f820" path="res://art/tile_0101.png" id="7_iplk6"]
+[ext_resource type="AudioStream" uid="uid://k8m4o3hlwm7l" path="res://art/enemy_block.ogg" id="8_ygf61"]
+
+[sub_resource type="Resource" id="Resource_24sye"]
+script = ExtResource("4_6cpw6")
+number = "2×4"
+icon = ExtResource("3_5laa2")
+metadata/_custom_type_script = "uid://dggdpqxv3uoav"
+
+[sub_resource type="Resource" id="Resource_d0kjl"]
+script = ExtResource("4_6cpw6")
+number = ""
+icon = ExtResource("7_iplk6")
+metadata/_custom_type_script = "uid://dggdpqxv3uoav"
+
+[node name="BatEnemyAI" type="Node"]
+script = ExtResource("1_hyg8h")
+
+[node name="BatAttackAction" type="Node" parent="."]
+script = ExtResource("2_06k5i")
+intent = SubResource("Resource_24sye")
+sound = ExtResource("5_8hwcw")
+type = 1
+chance_weight = 3
+
+[node name="BatBlockAction" type="Node" parent="."]
+script = ExtResource("3_yq87b")
+intent = SubResource("Resource_d0kjl")
+sound = ExtResource("8_ygf61")
+type = 1
+chance_weight = 1

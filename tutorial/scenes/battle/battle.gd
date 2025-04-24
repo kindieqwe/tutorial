@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var char_stats: CharacterStats  
+@export var music: AudioStream
 
 @onready var battle_ui: BattleUI = $BattleUI as BattleUI
 @onready var player_handler: PlayerHandler = $PlayerHandler as PlayerHandler
@@ -30,16 +31,15 @@ func _ready() -> void:
 	label.hide()
 	
 func start_battle(stats: CharacterStats) -> void:
+	get_tree().paused = false
+	MusicPlayer.play(music, true)   #播放音乐，并传递导出变量(music), 标志设置为 true（单一音轨）
 	player_handler.start_battle(stats)
 	enemy_handler.reset_enemy_actions()
 	
 
 func _on_enemies_child_order_changed() -> void:
 	if enemy_handler.get_child_count() == 0:
-		print("Victory")
-		if is_instance_valid(label):
-			label.text = "Victory"
-			label.show()
+		Events.battle_over_screen_requested.emit("Victory!", BattleOverPanel.Type.WIN)
 		
 
 func _on_enemy_turn_ended() -> void:
@@ -48,7 +48,4 @@ func _on_enemy_turn_ended() -> void:
 	
 
 func _on_player_died() -> void:
-	print("Game Over!")
-	label.text = "Game Over!"
-	label.show()	
-	hand.hide()
+	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)

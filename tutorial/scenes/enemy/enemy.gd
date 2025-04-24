@@ -2,7 +2,7 @@ class_name Enemy
 extends Area2D
 
 const ARROW_OFFSET := 5   #设置箭头与不同体型敌人的偏移量
-
+const WHITE_SPRITE_MATERIAL = preload("res://art/white_sprite_material.tres")
 @export var stats: EnemyStats : set = set_enemy_stats  #在检查器界面为敌人设置一个初始状态
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -84,12 +84,23 @@ func do_turn() -> void:
 func take_damage(damage: int) -> void:
 	if stats.health <= 0:    #检查玩家角色是否已经死亡
 		return
+		
+	sprite_2d.material = WHITE_SPRITE_MATERIAL  #在启动渐变动画之前，设置敌人材质为白色精灵材质，动画完成时改回
 	
-	stats.take_damage(damage)
+	var tween := create_tween()
+	#在指定的持续时间（duration）内，定期调用指定的回调函数（callback）
+	#绑定到当前实例（self）的回调函数，调用Shaker类的shake方法，并传递参数16和0.15  bind:绑定
+	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+	tween.tween_callback(stats.take_damage.bind(damage))  #调用stats的take_damage 传入damage的值
+	tween.tween_interval(0.17)    #设置0.17秒间隔
+	#动画完成后 检查敌人是否死亡
+	tween.finished.connect(
+		func():
+			sprite_2d.material = null  #设置精灵材质为空 ， 精灵变回原本样子
+			if stats.health <= 0:  
+				queue_free()     #把敌人放入待释放队列，并在下一帧释放内存
+	)
 	
-	if stats.health <= 0:
-		queue_free()   #删除？
-			
 	
 #箭头碰撞体进入敌人碰撞体时时，显示箭头
 func _on_area_entered(_area: Area2D) -> void:
