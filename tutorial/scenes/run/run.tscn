@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvjdw7iim2int"]
+
+[ext_resource type="PackedScene" uid="uid://c52mr0fi8wjac" path="res://scenes/map/map.tscn" id="1_l7o68"]
+[ext_resource type="Script" uid="uid://dypxdfk208rmy" path="res://scenes/run/run.gd" id="1_wdonh"]
+[ext_resource type="Resource" uid="uid://cjkr8p8krv70i" path="res://scenes/run/run_startup.tres" id="2_o4jfg"]
+[ext_resource type="Theme" uid="uid://bxjri3aifvst7" path="res://main_theme.tres" id="2_wdonh"]
+
+[node name="Run" type="Node"]
+script = ExtResource("1_wdonh")
+run_startup = ExtResource("2_o4jfg")
+
+[node name="Map" parent="." instance=ExtResource("1_l7o68")]
+
+[node name="CurrentView" type="Node" parent="."]
+
+[node name="DebugButtons" type="VBoxContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 43.0
+grow_vertical = 2
+
+[node name="MapButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Map"
+
+[node name="BattleButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Battle"
+
+[node name="ShopButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Shop
+"
+
+[node name="TreasureButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Treasure
+"
+
+[node name="RewardButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Reward"
+
+[node name="CampfireButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_wdonh")
+text = "Campfire"

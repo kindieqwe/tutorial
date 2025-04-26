@@ -14,8 +14,6 @@ func enter() -> void:
 	card_ui.panel.set("theme_override_styles/panel", card_ui.DRAG_STYLEBOX)
 	Events.card_drag_started.emit(card_ui)
 	
-		
-	
 	#创建一次性计时器（false参数表示不自动重复）
 	#设置计时时长为DRAG_MINIMUN_THRESHOLD（假设为常量）
 	#计时结束后标记minimum_drag_time_elapsed为true

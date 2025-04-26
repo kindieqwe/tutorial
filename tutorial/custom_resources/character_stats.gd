@@ -1,6 +1,13 @@
 class_name CharacterStats
 extends Stats
 
+@export_group("Visuals")   #将下方声明的变量归类到名为 "Visuals" 的折叠组中
+#导出 角色名字，描述（多行），图形纹理
+@export var character_name: String
+@export_multiline var description: String
+@export var portrait: Texture
+
+@export_group("Gameplay Data")   #将下方声明的变量归类到名为 "Gameplay Data" 的折叠组中
 @export var starting_deck: CardPile    #牌堆
 @export var cards_per_turn: int			#每回合能抽取多少牌
 @export var max_mana: int    	#法力值

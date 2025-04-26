@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=3 uid="uid://cklllnmc28ax1"]
+
+[ext_resource type="Theme" uid="uid://bxjri3aifvst7" path="res://main_theme.tres" id="1_btxxm"]
+[ext_resource type="Script" uid="uid://dq0x3b5e3dkci" path="res://scenes/ui/main_menu.gd" id="1_wb0q5"]
+[ext_resource type="Texture2D" uid="uid://dpfqok8tuy4r7" path="res://art/tile_0084.png" id="2_wb0q5"]
+[ext_resource type="Texture2D" uid="uid://cwf6dyi56tgo" path="res://art/tile_0088.png" id="3_q85j6"]
+[ext_resource type="Texture2D" uid="uid://cpydvk8mq66o5" path="res://art/tile_0087.png" id="4_8g5eo"]
+[ext_resource type="Texture2D" uid="uid://con6y7mc74c5a" path="res://art/tile_0120.png" id="5_7suek"]
+[ext_resource type="Texture2D" uid="uid://1u3b3hwqd8yh" path="res://art/tile_0110.png" id="6_otr3d"]
+[ext_resource type="Texture2D" uid="uid://c24y6l0ivlqp7" path="res://art/tile_0108.png" id="7_8ekit"]
+
+[sub_resource type="Gradient" id="Gradient_n4uci"]
+colors = PackedColorArray(0.2, 0.117647, 0.0509804, 1, 0.054902, 0, 0.0588235, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_877pj"]
+gradient = SubResource("Gradient_n4uci")
+width = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_ayp64"]
+line_spacing = 10.0
+shadow_size = 4
+shadow_color = Color(0.580392, 0.392157, 0.588235, 0.607843)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wb0q5")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_877pj")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -58.0
+offset_right = 88.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "我的第一个肉鸽卡牌游戏"
+label_settings = SubResource("LabelSettings_ayp64")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -14.0
+offset_right = 30.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme = ExtResource("1_btxxm")
+text = "continue"
+
+[node name="NewRun" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme = ExtResource("1_btxxm")
+text = "New Run
+"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme = ExtResource("1_btxxm")
+text = "Exit
+"
+
+[node name="Wizard" type="Sprite2D" parent="."]
+position = Vector2(34, 91)
+scale = Vector2(2, 2)
+texture = ExtResource("2_wb0q5")
+
+[node name="Assassin" type="Sprite2D" parent="."]
+position = Vector2(62, 87)
+scale = Vector2(2, 2)
+texture = ExtResource("3_q85j6")
+
+[node name="Warrior" type="Sprite2D" parent="."]
+position = Vector2(49, 109)
+scale = Vector2(2, 2)
+texture = ExtResource("4_8g5eo")
+
+[node name="Bat" type="Sprite2D" parent="."]
+position = Vector2(196, 96)
+scale = Vector2(2, 2)
+texture = ExtResource("5_7suek")
+flip_h = true
+
+[node name="Crab" type="Sprite2D" parent="."]
+position = Vector2(224, 92)
+scale = Vector2(2, 2)
+texture = ExtResource("6_otr3d")
+flip_h = true
+
+[node name="Ghost" type="Sprite2D" parent="."]
+position = Vector2(212, 114)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8ekit")
+flip_h = true
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/NewRun" to="." method="_on_new_run_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

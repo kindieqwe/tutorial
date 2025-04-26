@@ -10,7 +10,7 @@ enum Type {WIN, LOSE}
 
 func _ready() -> void:
 	# 场景树的 quit 方法，调用后会关闭 Godot 引擎，结束游戏进程
-	continue_button.pressed.connect(get_tree().quit)   
+	continue_button.pressed.connect(func(): Events.battle_won.emit())   
 	restart_button.pressed.connect(get_tree().reload_current_scene)  #重启按钮连接到 重新加载当前场景
 	Events.battle_over_screen_requested.connect(show_screen)
 	
