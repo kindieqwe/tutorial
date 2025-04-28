@@ -17,6 +17,7 @@ func start_battle(char_stats: CharacterStats) -> void:
 	character.draw_pile = character.deck.duplicate(true)
 	character.draw_pile.shuffle()
 	character.discard = CardPile.new()  #新建一个卡牌堆 设置为弃牌堆
+	
 	start_turn()
 	
 	

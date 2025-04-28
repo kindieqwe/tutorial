@@ -14,6 +14,10 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 
 #加载所有的按钮变量引用 实现在按钮被按下时 进行一些响应
 @onready var current_view: Node = $CurrentView
+@onready var deck_button: CardPileOpener = %DeckButton
+@onready var deck_view: CardPileView = %DeckView
+
+
 @onready var map_button: Button = %MapButton
 @onready var battle_button: Button = %BattleButton
 @onready var shop_button: Button = %ShopButton
@@ -39,7 +43,9 @@ func _ready() -> void:
 				
 func _start_run() -> void:
 	_setup_event_connections()
+	_setup_top_bar()
 	print("T0D0: procedurally generate map")
+	#deck_view.show()
 	
 #scence： 预加载的场景  
 func _change_view(scene: PackedScene) -> void:
@@ -68,6 +74,12 @@ func _setup_event_connections() -> void:
 	treasure_button.pressed.connect(_change_view.bind(TREASURE_SCENE))
 
 
+func _setup_top_bar():
+	deck_button.card_pile = character.deck
+	deck_view.card_pile = character.deck
+	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
+	
+	
 func _on_map_exited() -> void:
 	print("T0D0: from the MAP, change the view based on room type")
 	

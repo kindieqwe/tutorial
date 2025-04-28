@@ -13,6 +13,7 @@ extends Node2D
 
 
 
+
 func _ready() -> void:
 	#Events.player_hand_drawn.connect(_on_player_hand_draw)
 	#end_turn_button.pressed.connect(_on_end_turn_button_pressed)  #按钮按下与函数连接
@@ -28,6 +29,8 @@ func _ready() -> void:
 	Events.player_hand_discarded.connect(enemy_handler.start_turn) #发出敌人回合开始信号
 	Events.player_died.connect(_on_player_died)
 	start_battle(new_stats)
+	#TODO initialize card pile and button stuff
+	battle_ui.initialize_card_pile_ui()
 	label.hide()
 	
 func start_battle(stats: CharacterStats) -> void:
