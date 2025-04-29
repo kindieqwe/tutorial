@@ -14,6 +14,7 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 
 #加载所有的按钮变量引用 实现在按钮被按下时 进行一些响应
 @onready var current_view: Node = $CurrentView
+@onready var gold_ui: GoldUI = %GoldUI
 @onready var deck_button: CardPileOpener = %DeckButton
 @onready var deck_view: CardPileView = %DeckView
 
@@ -25,6 +26,7 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 @onready var rewards_button: Button = %RewardButton
 @onready var campfire_button: Button = %CampfireButton
 
+var stats: RunStats
 var character: CharacterStats
 
 #首先检查run_startup是否存在，如果不存在就直接返回。
@@ -42,24 +44,33 @@ func _ready() -> void:
 			
 				
 func _start_run() -> void:
+	stats = RunStats.new()
+	
 	_setup_event_connections()
 	_setup_top_bar()
 	print("T0D0: procedurally generate map")
-	#deck_view.show()
 	
+	
+	#deck_view.show()
+	#get_tree().paused = false   #取消游戏暂停  4-28日独自添加
+	#print("run._start_run 中的取消游戏暂停")
 #scence： 预加载的场景  
-func _change_view(scene: PackedScene) -> void:
+func _change_view(scene: PackedScene) -> Node:
 	#检查当前视图是否有节点，有就把那个节点删除  用其他的视图场景代替 实现场景的切换
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
 		
 	get_tree().paused = false   #取消游戏暂停
+	print("run._changge_view 中的取消游戏暂停")
 	var new_view := scene.instantiate() #实例化场景 并添加到当前场景的子节点中
 	current_view.add_child(new_view)
-
+	
+	return new_view
+	
+	
 #事件连接函数，确保可以在不同的视图之间切换
 func _setup_event_connections() -> void:
-	Events.battle_won.connect(_change_view.bind(BATTLE_REWARD_SCENE))
+	Events.battle_won.connect(_on_battle_won)
 	Events.battle_reward_exited.connect(_change_view.bind(MAP_SCENE))
 	Events.campfire_exited.connect(_change_view.bind(MAP_SCENE))
 	Events.map_exited.connect(_on_map_exited)
@@ -75,9 +86,20 @@ func _setup_event_connections() -> void:
 
 
 func _setup_top_bar():
+	gold_ui.run_stats = stats
 	deck_button.card_pile = character.deck
 	deck_view.card_pile = character.deck
 	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
+	
+
+func _on_battle_won() -> void:
+	var reward_scene := _change_view(BATTLE_REWARD_SCENE) as BattleReward
+	reward_scene.run_stats = stats
+	reward_scene.character_stats = character
+	
+	#测试代码
+	reward_scene.add_gold_reward(77)
+	reward_scene.add_card_reward()
 	
 	
 func _on_map_exited() -> void:

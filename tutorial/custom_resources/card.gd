@@ -2,11 +2,19 @@ class_name Card
 extends Resource
 
 enum Type {ATTACK, SKILL, POWER}
+enum Rarity {COMMON, UNCOMMON, RARE} #卡牌的稀有度
 enum Target {SELF, SINGLE_ENEMY, ALL_ENEMIES, EVERYONE}
+
+const RARITY_COLORS := {
+	Card.Rarity.COMMON: Color.GRAY,
+	Card.Rarity.UNCOMMON: Color.CORNFLOWER_BLUE,
+	Card.Rarity.RARE: Color.GOLD
+}
 
 @export_group("Card Attributes")
 @export var id: String
 @export var type: Type
+@export var rarity: Rarity
 @export var target: Target
 @export var cost: int #卡牌消耗的法力
 

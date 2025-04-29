@@ -9,6 +9,7 @@ extends Stats
 
 @export_group("Gameplay Data")   #将下方声明的变量归类到名为 "Gameplay Data" 的折叠组中
 @export var starting_deck: CardPile    #牌堆
+@export var draftable_cards: CardPile    #牌堆
 @export var cards_per_turn: int			#每回合能抽取多少牌
 @export var max_mana: int    	#法力值
 

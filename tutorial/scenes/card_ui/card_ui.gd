@@ -11,9 +11,11 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 @export var card: Card : set = _set_card
 @export var char_stats: CharacterStats : set = _set_char_stats
 
-@onready var panel: Panel = $Panel
-@onready var cost: Label = $Cost
-@onready var icon: TextureRect = $Icon
+#@onready var panel: Panel = $Panel
+#@onready var cost: Label = $Cost
+#@onready var icon: TextureRect = $Icon
+@onready var card_visuals: CardVisuals = $CardVisuals
+
 @onready var drop_point_detector: Area2D = $DropPointDetector
 @onready var card_state_machine: CardStateMachine = $CardStateMachine as CardStateMachine
 #节点数组，用于存储当前卡牌的所有目标 进入释放区域或手牌区域， 在目标列表中添加释放区域or手牌区域  真的有手牌区域吗？
@@ -66,18 +68,18 @@ func _set_card(value: Card) -> void:
 		await  ready
 		
 	card = value
-	cost.text = str(card.cost)
-	icon.texture = card.icon
-
+	#cost.text = str(card.cost)
+	#icon.texture = card.icon
+	card_visuals.card = card
 #用于设置卡牌是否能被打出
 func _set_playable(value: bool) -> void:
 	playable = value
 	if not playable:    #不能打出为cost标签添加红色标识， 并且icon透明 （卡片图标）
-		cost.add_theme_color_override("font_color", Color.RED)
-		icon.modulate = Color(1, 1, 1, 0.5)
+		card_visuals.cost.add_theme_color_override("font_color", Color.RED)
+		card_visuals.icon.modulate = Color(1, 1, 1, 0.5)
 	else:   #可以打出就移除cost标签的主题
-		cost.remove_theme_color_override("font_color")
-		icon.modulate = Color(1, 1, 1, 1)
+		card_visuals.cost.remove_theme_color_override("font_color")
+		card_visuals.icon.modulate = Color(1, 1, 1, 1)
 
 
 func _set_char_stats(value: CharacterStats) -> void:

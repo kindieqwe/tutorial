@@ -9,9 +9,7 @@ const HOVER_STYLEBOX := preload("res://scenes/card_ui/card_hover_stylebox.tres")
 #期望外部设置一个 卡牌属性 ，有自动响应函数
 @export var card: Card : set = set_card
 #对卡牌的基础属性引用 以便可以改变卡牌的样式框
-@onready var panel: Panel = $Visuals/Panel
-@onready var icon: TextureRect = $Visuals/Icon
-@onready var cost: Label = $Visuals/Cost
+@onready var visuals: CardVisuals = $Visuals
 
 #鼠标点击事件处理 
 func _on_visuals_gui_input(event: InputEvent) -> void:
@@ -20,11 +18,11 @@ func _on_visuals_gui_input(event: InputEvent) -> void:
 		print("tooltip_requested %s" % card.id)
 
 func _on_visuals_mouse_entered() -> void:
-	panel.set("theme_override_styles/panel", HOVER_STYLEBOX)
+	visuals.panel.set("theme_override_styles/panel", HOVER_STYLEBOX)
 
 
 func _on_visuals_mouse_exited() -> void:
-	panel.set("theme_override_styles/panel", BASE_STYLEBOX)
+	visuals.panel.set("theme_override_styles/panel", BASE_STYLEBOX)
 	
 	
 func set_card(value: Card) -> void:
@@ -32,5 +30,4 @@ func set_card(value: Card) -> void:
 		await ready
 		
 	card = value
-	icon.texture = card.icon
-	cost.text = str(card.cost)
+	visuals.card = card

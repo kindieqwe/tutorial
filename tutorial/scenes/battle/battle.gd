@@ -34,7 +34,7 @@ func _ready() -> void:
 	label.hide()
 	
 func start_battle(stats: CharacterStats) -> void:
-	get_tree().paused = false
+	get_tree().paused = false     
 	MusicPlayer.play(music, true)   #播放音乐，并传递导出变量(music), 标志设置为 true（单一音轨）
 	player_handler.start_battle(stats)
 	enemy_handler.reset_enemy_actions()

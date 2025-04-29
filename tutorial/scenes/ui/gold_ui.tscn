@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv2ujtr105v6i"]
+
+[ext_resource type="Script" uid="uid://dg6jrpxqql1h4" path="res://scenes/ui/gold_ui.gd" id="1_4oho1"]
+[ext_resource type="Texture2D" uid="uid://w4qa3nswro07" path="res://art/gold.png" id="1_h4fjr"]
+[ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://art/pixel_rpg.ttf" id="2_4oho1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5u54n"]
+font = ExtResource("2_4oho1")
+font_size = 8
+
+[node name="GoldUI" type="HBoxContainer"]
+offset_right = 33.0
+offset_bottom = 9.0
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+script = ExtResource("1_4oho1")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("1_h4fjr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "999"
+label_settings = SubResource("LabelSettings_5u54n")
+vertical_alignment = 1
