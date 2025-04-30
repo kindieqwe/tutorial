@@ -54,28 +54,33 @@ func add_card_reward() -> void:
 	card_reward.pressed.connect(_show_card_rewards)
 	rewards.add_child.call_deferred(card_reward)
 
+#展示卡牌奖励
 
 func _show_card_rewards() -> void:
-	if not run_stats or not character_stats:
+	if not run_stats or not character_stats:  #安全检查
 		return
 	
-	var card_rewards := CARD_REWARDS.instantiate() as CardRewards
-	add_child(card_rewards)
-	card_rewards.card_reward_selected.connect(_on_card_reward_taken)
+	var card_rewards := CARD_REWARDS.instantiate() as CardRewards # 实例化奖励界面
+	add_child(card_rewards)   # 添加到场景树
+	card_rewards.card_reward_selected.connect(_on_card_reward_taken) # 信号连接
 	
-	var card_reward_array: Array[Card] = []
-	var available_cards: Array[Card] = character_stats.draftable_cards.cards.duplicate(true)
+	var card_reward_array: Array[Card] = []   
+	#使用 duplicate(true) 进行深拷贝，避免修改原始卡池
+	var available_cards: Array[Card] = character_stats.draftable_cards.cards.duplicate(true)  
 	
-	for i in run_stats.card_rewards:
-		_setup_card_chances()
-		var roll := randf_range(0.0, card_reward_total_weight)
+#加权随机算法
+#通过权重总和进行区间划分（如普通:0-50，稀有:50-70，史诗:70-90，传说:90-100）
+#随机数落在哪个区间就选择对应稀有度
+	for i in run_stats.card_rewards:  # 遍历应发放的奖励次数
+		_setup_card_chances()   # 初始化权重（如重置概率池）
+		var roll := randf_range(0.0, card_reward_total_weight)  # 生成加权随机数
 		
-		for rarity: Card.Rarity in card_rarity_weights:
-			if card_rarity_weights[rarity] > roll:
-				_modify_weights(rarity)
-				var picked_card := _get_random_available_card(available_cards, rarity)
-				card_reward_array.append(picked_card)
-				available_cards.erase(picked_card)
+		for rarity: Card.Rarity in card_rarity_weights:   # 遍历稀有度权重
+			if card_rarity_weights[rarity] > roll:     # 命中当前稀有度区间
+				_modify_weights(rarity)         # 调整后续权重（如降低同稀有度概率）每次选择后通过 _modify_weights 改变权重分布
+				var picked_card := _get_random_available_card(available_cards, rarity)  # # 获取符合稀有度的随机卡
+				card_reward_array.append(picked_card)  # 加入奖励队列
+				available_cards.erase(picked_card)    # 从卡池移除
 				break
 
 	card_rewards.rewards = card_reward_array

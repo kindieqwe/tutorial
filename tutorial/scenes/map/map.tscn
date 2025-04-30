@@ -1,50 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://c52mr0fi8wjac"]
+[gd_scene load_steps=5 format=3 uid="uid://c52mr0fi8wjac"]
 
-[ext_resource type="Theme" uid="uid://bxjri3aifvst7" path="res://main_theme.tres" id="1_sxf4j"]
 [ext_resource type="Script" uid="uid://dy7o2y5unbaeh" path="res://scenes/map/map.gd" id="1_tqkkf"]
+[ext_resource type="Script" uid="uid://blo8khkgn17sa" path="res://scenes/map/map_generator.gd" id="3_a2pkv"]
 
-[node name="Map" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[sub_resource type="Gradient" id="Gradient_tqkkf"]
+colors = PackedColorArray(0.273873, 0.273873, 0.273873, 1, 0.4, 0.219608, 0.203922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a2pkv"]
+gradient = SubResource("Gradient_tqkkf")
+width = 50
+
+[node name="Map" type="Node2D"]
 script = ExtResource("1_tqkkf")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Lines" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Rooms" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(128, 72)
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("3_a2pkv")
+
+[node name="MapBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.380392)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Map"
-
-[node name="Button" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 14)
-layout_mode = 2
-theme = ExtResource("1_sxf4j")
-text = "Go Back"
-
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+texture = SubResource("GradientTexture1D_a2pkv")
