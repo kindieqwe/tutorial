@@ -49,6 +49,10 @@ func draw_cards(amount: int) -> void:
 	
 	
 func discard_cards() -> void:
+	if hand.get_child_count() == 0:
+		Events.player_hand_discarded.emit()
+		return
+		
 	var tween := create_tween()
 	for card_ui: CardUI in hand.get_children():
 		 #只是把回合结束时把未出的卡牌放入弃牌堆 ，但打出的牌没有放入弃牌堆

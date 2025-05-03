@@ -11,6 +11,23 @@ func _ready() -> void:
 		#enemy = child as Enemy
 		#enemy.current_action = null
 		#enemy.update_action()
+		
+func setup_enemies(battle_stats: BattleStats) -> void:
+	if not battle_stats:
+		return
+		
+	for enemy: Enemy in get_children():
+		enemy.queue_free()	
+		
+	var all_new_enemies := battle_stats.enemies.instantiate()
+	
+	for new_enemy: Node2D in all_new_enemies.get_children():
+		var new_enemy_child := new_enemy.duplicate() as Enemy
+		add_child(new_enemy_child)
+		
+	all_new_enemies.queue_free()
+	
+	
 func reset_enemy_actions() -> void:
 	for enemy: Enemy in get_children():
 		enemy.current_action = null

@@ -10,7 +10,7 @@ enum Type {NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS, EVENT}
 @export var next_rooms: Array[Room]   #接下来的房间
 @export var selected := false     #已选标记
 ## This is only used by the MONSTER and BOSS types
-#@export var battle_stats: BattleStats
+@export var battle_stats: BattleStats
 ## This is only used by the EVENT room type
 #@export var event_scene: PackedScene
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8v72xcmrx86n"]
+[gd_scene load_steps=6 format=3 uid="uid://c8v72xcmrx86n"]
 
 [ext_resource type="Script" uid="uid://bfa77v2wyigrf" path="res://scenes/ui/battle_over_panel.gd" id="1_5h67t"]
 [ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://art/pixel_rpg.ttf" id="1_dna7b"]
+[ext_resource type="Theme" uid="uid://bxjri3aifvst7" path="res://main_theme.tres" id="2_qotfm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h67t"]
 bg_color = Color(0, 0, 0, 0.34902)
@@ -46,6 +47,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 16)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_qotfm")
 theme_override_fonts/font = ExtResource("1_dna7b")
 theme_override_font_sizes/font_size = 7
 text = "Awesome ！"
@@ -55,6 +57,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 16)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_qotfm")
 theme_override_fonts/font = ExtResource("1_dna7b")
 theme_override_font_sizes/font_size = 7
 text = "Restart"
