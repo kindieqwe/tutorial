@@ -27,6 +27,10 @@ func _ready() -> void:
 	
 	
 func _input(event: InputEvent) -> void:
+	#安全检查，避免即使隐藏了地图，意见会响应鼠标响应动作
+	if not visible: #如果不是可见的，返回
+		return
+		
 	if event.is_action_pressed("scroll_up"):
 		camera_2d.position.y -= SCROLL_SPEED
 	elif event.is_action_pressed("scroll_down"):

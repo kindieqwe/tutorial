@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tutorial"
-run/main_scene="uid://hnoc6y20xt5b"
+run/main_scene="uid://bvjdw7iim2int"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://byr0rbrdyo5q4"
 
