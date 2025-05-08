@@ -16,8 +16,6 @@ extends Node2D
 @onready var hand: Hand = $BattleUI/Hand
 
 
-
-
 func _ready() -> void:
 	##Events.player_hand_drawn.connect(_on_player_hand_draw)
 	##end_turn_button.pressed.connect(_on_end_turn_button_pressed)  #按钮按下与函数连接
@@ -67,7 +65,7 @@ func _on_enemy_turn_ended() -> void:
 
 func _on_player_died() -> void:
 	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
-
+	SaveGame.delete_data()
 
 func _on_relics_activated(type: Relic.Type) -> void:
 	match type:
