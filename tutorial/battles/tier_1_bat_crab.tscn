@@ -7,9 +7,9 @@
 [node name="Tier1BatCrab" type="Node2D"]
 
 [node name="Enemy" parent="." instance=ExtResource("1_ugw2x")]
-position = Vector2(227, 83)
+position = Vector2(229, 68)
 stats = ExtResource("2_gjjq5")
 
 [node name="Enemy2" parent="." instance=ExtResource("1_ugw2x")]
-position = Vector2(184, 85)
+position = Vector2(176, 69)
 stats = ExtResource("3_gjjq5")

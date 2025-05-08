@@ -12,6 +12,8 @@ extends Stats
 @export var draftable_cards: CardPile    #牌堆
 @export var cards_per_turn: int			#每回合能抽取多少牌
 @export var max_mana: int    	#法力值
+@export var starting_relic: Relic   #初始遗物
+
 
 var mana: int : set = set_mana
 var deck: CardPile   #手牌

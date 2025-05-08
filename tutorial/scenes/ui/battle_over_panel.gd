@@ -3,6 +3,7 @@ extends Panel
 
 enum Type {WIN, LOSE}
 
+
 @onready var label: Label = %Label
 @onready var continue_button: Button = %ContinueButton
 @onready var restart_button: Button = %RestartButton
@@ -23,4 +24,4 @@ func show_screen(text: String, type: Type) -> void:
 	#get_tree()返回场景树的根节点  即 “Battle” 节点
 	get_tree().paused = true  #设置场景树的 暂停属性  为 true  :实现游戏暂停  #后续需要开启
 	print("battle_over_panel 中的游戏暂停")
-	print(get_tree())
+	

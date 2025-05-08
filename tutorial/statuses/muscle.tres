@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MuscleStatus" load_steps=3 format=3 uid="uid://ba6a6rykchb73"]
+
+[ext_resource type="Texture2D" uid="uid://dia1qtuisdu3b" path="res://art/muscle.png" id="1_odh2a"]
+[ext_resource type="Script" uid="uid://b5gmuu6wg6o6s" path="res://statuses/muscle.gd" id="2_h63ec"]
+
+[resource]
+script = ExtResource("2_h63ec")
+id = "muscle"
+type = 2
+stack_type = 1
+can_expire = false
+duration = 0
+stacks = 2
+icon = ExtResource("1_odh2a")
+tooltip = "Muscle: attacks deal %s more damage."
+metadata/_custom_type_script = "uid://baacty5p40c2m"

@@ -2,17 +2,20 @@ class_name Player
 extends Node2D
 
 const WHITE_SPRITE_MATERIAL = preload("res://art/white_sprite_material.tres")
+
 @export var stats: CharacterStats : set = set_character_stats
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var stats_ui: StatsUI = $StatsUI
+@onready var status_handler: StatusHandler = $StatusHandler
+@onready var modifier_handler: ModifierHandler = $ModifierHandler
 
 
 func _ready() -> void:
-	
-	#await  get_tree().create_timer(4).timeout   #创建一个两秒的计时器
-	#take_damage(21)     #受到21点伤害
-	#stats.block += 17   #护盾值增加17
+	#测试代码
+	#var exposed := preload("res://statuses/exposed.tres").duplicate()
+	#exposed.duration = 3
+	#status_handler.add_status(exposed)
 	pass
 
 func set_character_stats(value: CharacterStats) -> void:
@@ -37,17 +40,17 @@ func update_stats() -> void:
 	stats_ui.update_stats(stats)
 		
 #玩家收到伤害
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, which_modifier: Modifier.Type) -> void:
 	if stats.health <= 0:    #检查玩家角色是否已经死亡
 		return
 	
 	sprite_2d.material = WHITE_SPRITE_MATERIAL  #设置玩家精灵材质为白色
-	
+	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var tween := create_tween()
 	#在指定的持续时间（duration）内，定期调用指定的回调函数（callback）
 	#绑定到当前实例（self）的回调函数，调用Shaker类的shake方法，并传递参数16和0.15  bind:绑定
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
-	tween.tween_callback(stats.take_damage.bind(damage))  #调用stats的take_damage 传入damage的值
+	tween.tween_callback(stats.take_damage.bind(modified_damage))  #调用stats的take_damage 传入damage的值
 	tween.tween_interval(0.17)    #0.2秒间隔
 	#Events.player_hit.emit()      #发出角色受伤信号，响应 颜色矩形为红色
 	#动画完成后 检查玩家是否死亡

@@ -19,10 +19,16 @@ signal player_died     #玩家死亡发出信号
 #Enemy-related events
 signal enemy_action_completed(enemy: Enemy)  #敌人的行动完成释放信号
 signal enemy_turn_ended    #敌人结束回合时触发
+signal enemy_died(enemy: Enemy) 
 
 #Battle-related events
 signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal battle_won  #战斗胜利信号
+signal status_tooltip_requested(statuses: Array[Status])
+
+
+# Relic-related events
+signal relic_tooltip_requested(relic: Relic)
 
 #Map-related events
 signal map_exited(room: Room)  #退出地图信号

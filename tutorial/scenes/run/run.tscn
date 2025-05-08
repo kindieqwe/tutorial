@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvjdw7iim2int"]
+[gd_scene load_steps=14 format=3 uid="uid://bvjdw7iim2int"]
 
 [ext_resource type="PackedScene" uid="uid://c52mr0fi8wjac" path="res://scenes/map/map.tscn" id="1_l7o68"]
 [ext_resource type="Script" uid="uid://dypxdfk208rmy" path="res://scenes/run/run.gd" id="1_wdonh"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dn8vj80u0rgqm" path="res://scenes/ui/card_pile_opener.tscn" id="5_wo0nw"]
 [ext_resource type="Texture2D" uid="uid://bshn80rknef7k" path="res://art/deck.png" id="6_ux63y"]
 [ext_resource type="PackedScene" uid="uid://bkn4pihp78lfl" path="res://scenes/ui/health.tscn" id="6_yeia0"]
+[ext_resource type="PackedScene" uid="uid://no0dw6rg2m34" path="res://scenes/relic_handler/relic_handler.tscn" id="7_cnkn7"]
 [ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://art/pixel_rpg.ttf" id="7_yeia0"]
 [ext_resource type="PackedScene" uid="uid://gs06ojl30u72" path="res://scenes/ui/card_pile_view.tscn" id="8_g42ja"]
+[ext_resource type="PackedScene" uid="uid://bckckw74p8uly" path="res://scenes/relic_handler/relic_tooltip.tscn" id="12_7yo0l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cnkn7"]
 font = ExtResource("7_yeia0")
@@ -96,7 +98,17 @@ unique_name_in_owner = true
 layout_mode = 2
 show_max_hp = true
 
+[node name="CenterContainer" type="CenterContainer" parent="TopBar/BarItems"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RelicHandler" parent="TopBar/BarItems/CenterContainer" instance=ExtResource("7_cnkn7")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
 [node name="PlaceHolder" type="Control" parent="TopBar/BarItems"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -117,5 +129,9 @@ text = "99"
 label_settings = SubResource("LabelSettings_cnkn7")
 
 [node name="DeckView" parent="TopBar" instance=ExtResource("8_g42ja")]
+unique_name_in_owner = true
+visible = false
+
+[node name="RelicTooltip" parent="TopBar" instance=ExtResource("12_7yo0l")]
 unique_name_in_owner = true
 visible = false

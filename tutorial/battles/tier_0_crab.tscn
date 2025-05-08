@@ -6,5 +6,6 @@
 [node name="Tier0Crab" type="Node2D"]
 
 [node name="Enemy" parent="." instance=ExtResource("1_rpaj7")]
-position = Vector2(227, 83)
+position = Vector2(196, 57)
+scale = Vector2(2, 2)
 stats = ExtResource("2_rpaj7")

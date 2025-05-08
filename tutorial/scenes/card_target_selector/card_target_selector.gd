@@ -72,6 +72,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	#如果正在瞄准但目标区域中没有传递进来的敌人区域，则添加的目标区域
 	if not current_card.targets.has(area):
 		current_card.targets.append(area)
+		current_card.request_tooltip()
 	
 #离开瞄准
 func _on_area_2d_area_exited(area: Area2D) -> void:
@@ -79,7 +80,7 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 		return
 		
 	current_card.targets.erase(area)   #离开后清除
-	
+	current_card.request_tooltip()
 	
 	
 	

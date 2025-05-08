@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq7bgwu8hey0e"]
+
+[ext_resource type="Texture2D" uid="uid://602w11k38uu5" path="res://art/expose.png" id="1_5okso"]
+[ext_resource type="Script" uid="uid://bjuinq2wljxvp" path="res://scenes/ui/status_tooltip.gd" id="1_nj0h8"]
+[ext_resource type="Resource" uid="uid://ba6a6rykchb73" path="res://statuses/muscle.tres" id="2_6u54l"]
+[ext_resource type="Theme" uid="uid://bxjri3aifvst7" path="res://main_theme.tres" id="2_nj0h8"]
+
+[node name="StatusTooltip" type="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 150.0
+offset_bottom = 15.0
+script = ExtResource("1_nj0h8")
+status = ExtResource("2_6u54l")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("1_5okso")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_nj0h8")
+text = "Takes 50% more damage from attacks, for %s turns."
+vertical_alignment = 1
+autowrap_mode = 2

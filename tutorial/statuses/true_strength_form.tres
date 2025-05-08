@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TrueStrengthStatus" load_steps=3 format=3 uid="uid://blqoqk0hhenyg"]
+
+[ext_resource type="Texture2D" uid="uid://cn2c1psh561cc" path="res://art/tile_0127.png" id="1_5fl3q"]
+[ext_resource type="Script" uid="uid://bie4aqnvsyq32" path="res://statuses/true_strength_form.gd" id="2_y1gyy"]
+
+[resource]
+script = ExtResource("2_y1gyy")
+id = "true_strength_form"
+type = 0
+stack_type = 0
+can_expire = false
+duration = 0
+stacks = 0
+icon = ExtResource("1_5fl3q")
+tooltip = "True Strength Form: at the start of its turn, gains 2 Muscle.
+"
+metadata/_custom_type_script = "uid://baacty5p40c2m"

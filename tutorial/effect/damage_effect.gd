@@ -9,5 +9,5 @@ func execute(targets: Array[Node]) -> void:
 		if not target:
 			continue
 		if target is Enemy or target is Player:
-			target.take_damage(amount)        #受到伤害
+			target.take_damage(amount, Modifier.Type.DMG_TAKEN)        #受到伤害
 			SFXPlayer.play(sound)

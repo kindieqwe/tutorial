@@ -1,9 +1,19 @@
+# Player turn order:
+# 1. START_OF_TURN Relics   #启用遗物
+# 2. START_OF_TURN Statuses  状态实现
+# 3. Draw Hand            抽牌
+# 4. End Turn        结束回合
+# 5. END_OF_TURN Relics    遗物
+# 6. END_OF_TURN Statuses  状态
+# 7. Discard Hand          弃牌
 class_name PlayerHandler
 extends Node
 
 const HAND_DRAW_INTERVAL := 0.25  #每抽一张卡牌 设置0.25的时间 防止所有卡牌一瞬间出现在手牌中
 const HAND_DISCARD_INTERVAL := 0.25 
 
+@export var relics: RelicHandler
+@export var player: Player
 @export var hand: Hand
 
 var character: CharacterStats
@@ -18,23 +28,32 @@ func start_battle(char_stats: CharacterStats) -> void:
 	character.draw_pile.shuffle()
 	character.discard = CardPile.new()  #新建一个卡牌堆 设置为弃牌堆
 	
+	#if not relics.relics_activated.connect(_on_relics_activated):
+	relics.relics_activated.connect(_on_relics_activated)
+	#if not player.status_handler.statuses_applied.connect(_on_statuses_applied):
+	player.status_handler.statuses_applied.connect(_on_statuses_applied)
 	start_turn()
 	
 	
 func start_turn() -> void:
 	character.block = 0
 	character.reset_mana()
-	draw_cards(character.cards_per_turn)
-	
+	#player.status_handler.apply_statuses_by_type(Status.Type.START_OF_TURN)
+	#relics.relics_activated.connect(_on_relics_activated)
+	relics.activate_relics_by_type(Relic.Type.START_OF_TURN)
+
 
 func end_turn() -> void:
 	hand.disable_hand()  #防止弃牌时产生交互
-	discard_cards()
+	#player.status_handler.apply_statuses_by_type(Status.Type.END_OF_TURN)
+	relics.activate_relics_by_type(Relic.Type.END_OF_TURN)
+	
 	
 func draw_card() -> void:
 	reshuffle_deck_from_discard()  #洗牌
 	hand.add_card(character.draw_pile.draw_card())
 	reshuffle_deck_from_discard()
+	
 	
 func draw_cards(amount: int) -> void:
 	var tween := create_tween()
@@ -76,4 +95,24 @@ func reshuffle_deck_from_discard() -> void:
 
 #把打出的卡牌加入到弃牌堆
 func _on_card_played(card: Card) -> void:
+	#实现消耗的逻辑？ 不加入弃牌堆就是消耗？ 消失了？
+	if card.exhausts or card.type == Card.Type.POWER:
+		return
+		
 	character.discard.add_card(card)
+	
+
+func _on_statuses_applied(type: Status.Type) -> void:
+	match type:
+		Status.Type.START_OF_TURN:
+			draw_cards(character.cards_per_turn)
+		Status.Type.END_OF_TURN:
+			discard_cards()
+			
+			
+func _on_relics_activated(type: Relic.Type) -> void:
+	match type:
+		Relic.Type.START_OF_TURN:
+			player.status_handler.apply_statuses_by_type(Status.Type.START_OF_TURN)
+		Relic.Type.END_OF_TURN:
+			player.status_handler.apply_statuses_by_type(Status.Type.END_OF_TURN)

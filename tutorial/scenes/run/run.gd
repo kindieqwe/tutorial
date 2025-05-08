@@ -20,6 +20,8 @@ const MAIN_MENU_PATH := "res://scenes/ui/main_menu.tscn"
 @onready var deck_button: CardPileOpener = %DeckButton
 @onready var deck_view: CardPileView = %DeckView
 
+@onready var relic_handler: RelicHandler = %RelicHandler
+@onready var relic_tooltip: RelicTooltip = %RelicTooltip
 
 @onready var map_button: Button = %MapButton
 @onready var battle_button: Button = %BattleButton
@@ -34,6 +36,7 @@ var character: CharacterStats
 #首先检查run_startup是否存在，如果不存在就直接返回。
 #然后使用match语句根据run_startup.type的值来决定执行新游戏还是继续之前的游戏
 func _ready() -> void:
+	
 	if not run_startup:
 		return
 		
@@ -106,6 +109,10 @@ func _setup_top_bar():
 	gold_ui.run_stats = stats
 	deck_button.card_pile = character.deck
 	deck_view.card_pile = character.deck
+	
+	relic_handler.add_relic(character.starting_relic)
+	Events.relic_tooltip_requested.connect(relic_tooltip.show_tooltip)
+	
 	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
 	
 	
@@ -115,6 +122,7 @@ func _on_battle_room_entered(room: Room) -> void:
 	#测试代码
 	#battle_scene.battle_stats = preload("res://battles/tier_0_crab.tres")
 	battle_scene.battle_stats = room.battle_stats
+	battle_scene.relics = relic_handler
 	battle_scene.start_battle()
 	
 	
